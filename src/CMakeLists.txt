@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.2)
+
+add_executable(mtDeque main.cpp)
+set_target_properties(mtDeque PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQIRED ON)
+target_include_directories(mtDeque PUBLIC ../libs)
+target_link_libraries(mtDeque PRIVATE libmtDequeLib pthread)
+
+if(MSVC)
+	target_compile_options(mtDeque PRIVATE /W4)
+else()
+	target_compile_options(mtDeque PRIVATE -Wall -Wextra -Werror)
+endif()
+
+install(TARGETS mtDeque RUNTIME DESTINATION bin)
+
+set(CPACK_GENERATOR DEB)
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+set(CPACK_PACKAGE_CONTACT gavl.andr96@gmail.com)
+
+include(CPack)
